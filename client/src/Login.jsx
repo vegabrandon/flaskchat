@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 const Login = ({setIsLoggedIn, setUser}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [modalOpen, setModalOpen] = useState(false)
   const submit = () => {
     axios.post('http://127.0.0.1:5000/login', {username, password})
       .then(data => {
@@ -15,6 +17,14 @@ const Login = ({setIsLoggedIn, setUser}) => {
       })
   }
   return (<>
+    <Modal
+      isOpen={modalOpen}
+    >
+      Hello!
+      <button
+        onClick={() => {setModalOpen(false)}}
+      >Close</button>
+    </Modal>
     <h1 className='text-white text-[5rem]'>Login</h1>
     <div className='h-[50vh] flex flex-col justify-center'>
 
@@ -26,8 +36,12 @@ const Login = ({setIsLoggedIn, setUser}) => {
       <input onChange={(e) => {setPassword(e.target.value)}} name='password' type="password" className='m-auto  w-[15vw]'/></div>
       </div>
       <div>
-        <button onClick={submit} className="bg-white p-2 rounded-xl mr-5 w-[5rem] m-auto btn">Submit</button>
-        <button onClick={submit} className="bg-white p-2 rounded-xl w-[5rem] m-auto btn">Signup</button>
+        <button onClick={submit} className="bg-white p-2 rounded-xl mr-5 w-[5rem] m-auto btn">
+          Submit
+        </button>
+        <button onClick={() => {setModalOpen(true)}} className="bg-white p-2 rounded-xl w-[5rem] m-auto btn">
+          Signup
+        </button>
       </div>
     </>
   )
