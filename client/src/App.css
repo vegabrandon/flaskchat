@@ -1,9 +1,13 @@
 .App {
   text-align: center;
 }
+html {
+  height: 100%;
+  width: 100%;
+}
 body {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-image: linear-gradient(to right bottom, #002a4e, #07436f, #0d5f92, #0d7cb6, #009bdb);
 }
 .App-logo {

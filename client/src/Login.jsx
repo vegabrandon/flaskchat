@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Login = () => {
+const Login = ({setIsLoggedIn, setUser}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const submit = () => {
-    axios.post('localhost:5000/login', {username, password})
+    axios.post('http://127.0.0.1:5000/login', {username, password})
       .then(data => {
-        
+        setIsLoggedIn(true);
+        setUser(data.data)
+      })
+      .catch(err => {
+        alert('Incorrect Login')
       })
   }
   return (
