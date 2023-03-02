@@ -17,25 +17,25 @@ const Chat = ({username}) => {
   }
   return <>
     <br />
-    <div className='flex flex-col w-[50vw] h-[50vh] m-auto justify-evenly overflow-y-scroll overflow-x-hidden'>
+    <div className='flex flex-col w-[60vw] h-[50vh] m-auto mt-12 justify-start overflow-y-scroll overflow-x-hidden text-white'>
     {messages.length ? messages.map((msg) =>
-      <div className='flex flex-col border border-black m-auto w-[40vw] rounded-xl'>
-        <div className='h-[12vh] w-[40vw]'>
+      <div className='flex flex-col border h-[15vh] m-auto w-[50vw] rounded-xl mb-4'>
+        <div className='h-[12vh] w-[50vw]'>
           <h5 className='text-lg'>{msg.body}</h5>
         </div>
-        <div className='h-[3vh] w-[40vw] flex flex-row justify-start'>
-          <h4 className='text-2xl ml-3'>{msg.username}</h4>
+        <div className='h-[3vh] w-[50vw] flex flex-row justify-start mb-2'>
+          <h4 className='text-2xl ml-3'><i class="fa-solid fa-user text-sm mr-1"></i>{msg.username}</h4>
         </div>
       </div>
 
     ) : <>No Chats</>}
     </div>
+    <div className='h-[20vh] flex flex-col justify-center'>
+      <div><label className='text-white text-2xl mr-5' htmlFor="password">Enter a chat message!</label>
+      <input onChange={(e) => {setMessage(e.target.value)}} name='password' type="text" /></div>
+      <div><button onClick={submit} className="bg-white p-2 mt-5 rounded-xl btn">Send</button></div>
+    </div>
 
-    <br />
-    <label className='text-white text-2xl' htmlFor="password">Enter a chat message!</label><br />
-    <input onChange={(e) => {setMessage(e.target.value)}} name='password' type="text" />
-    <br />
-    <button onClick={submit} className="bg-white p-2 mt-5 rounded-xl btn">Send</button>
   </>
 }
 

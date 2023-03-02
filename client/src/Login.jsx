@@ -14,17 +14,21 @@ const Login = ({setIsLoggedIn, setUser}) => {
         alert('Incorrect Login')
       })
   }
-  return (
-    <>
-      <h1 className='text-white text-[5rem]'>Login</h1>
-      <label className='text-white text-2xl' htmlFor="username">Username</label><br />
-      <input onChange={(e) => {setUsername(e.target.value)}} name='username' type="text" className='mb-5'/>
-      <br />
-      <label className='text-white text-2xl' htmlFor="password">Password</label><br />
-      <input onChange={(e) => {setPassword(e.target.value)}} name='password' type="text" />
-      <br />
-      <button onClick={submit} className="bg-white p-2 mt-5 rounded-xl btn">Submit</button>
-      <button onClick={submit} className="bg-white p-2 mt-5 rounded-xl ml-2 btn">Signup</button>
+  return (<>
+    <h1 className='text-white text-[5rem]'>Login</h1>
+    <div className='h-[50vh] flex flex-col justify-center'>
+
+
+      <div className='flex flex-col'><label className='text-white text-2xl mb-5' htmlFor="username">Username</label>
+      <input onChange={(e) => {setUsername(e.target.value)}} name='username' type="text" className='m-auto w-[15vw]'/></div>
+
+      <div className='flex flex-col mt-5'><label className='text-white text-2xl mb-5' htmlFor="password">Password</label>
+      <input onChange={(e) => {setPassword(e.target.value)}} name='password' type="password" className='m-auto  w-[15vw]'/></div>
+      </div>
+      <div>
+        <button onClick={submit} className="bg-white p-2 rounded-xl mr-5 w-[5rem] m-auto btn">Submit</button>
+        <button onClick={submit} className="bg-white p-2 rounded-xl w-[5rem] m-auto btn">Signup</button>
+      </div>
     </>
   )
 }
