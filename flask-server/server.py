@@ -9,7 +9,7 @@ app = Flask(__name__, static_folder='../client/public')
 # MongoDB Client
 client = MongoClient('localhost', 27017)
 db = client.flask_db
-users = db.users
+userCollection = db.userCollection
 
 # API Route in Flask
 @app.route('/test', methods=['GET'])
@@ -18,9 +18,17 @@ def test():
   return {"test": {"test": "test"}}
 
 @app.route('/users', methods=['POST'])
-def users():
-   if request.method=='POST':
-      
+async def users():
+  userCollection.insert_one({'username': request.json['username'], 'password': request.json['password']})
+  return {}
+
+@app.route('/login', methods=['POST'])
+async def login():
+  currentUser = userCollection.find_one({'username': request.json['username']})
+  if currentUser['password'] == request.json['password']:
+    return { "username": currentUser.username }
+  else:
+    return "Record not found", 400
 
 
 if __name__ == "__main__":
