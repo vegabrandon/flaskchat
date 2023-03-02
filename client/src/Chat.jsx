@@ -4,10 +4,15 @@ const Chat = ({username}) => {
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState('')
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/messages')
-      .then(data => {
-        setMessages(data.data);
-      })
+    const getMessages = () => {
+      axios.get('http://127.0.0.1:5000/messages')
+        .then(data => {
+          setMessages(data.data);
+        })
+    }
+    getMessages();
+    const interval = setInterval(() => getMessages(), 1000);
+    return () => {clearInterval(interval)}
   }, [])
   const submit = () => {
     axios.post('http://127.0.0.1:5000/messages', {body: message, username})
@@ -18,13 +23,13 @@ const Chat = ({username}) => {
   return <>
     <br />
     <div className='flex flex-col w-[60vw] h-[50vh] m-auto mt-12 justify-start overflow-y-scroll overflow-x-hidden text-white'>
-    {messages.length ? messages.map((msg) =>
+    {messages.length ? messages.slice(0).reverse().map((msg) =>
       <div className='flex flex-col border h-[15vh] m-auto w-[50vw] rounded-xl mb-4'>
         <div className='h-[12vh] w-[50vw]'>
           <h5 className='text-lg'>{msg.body}</h5>
         </div>
         <div className='h-[3vh] w-[50vw] flex flex-row justify-start mb-2'>
-          <h4 className='text-2xl ml-3'><i class="fa-solid fa-user text-sm mr-1"></i>{msg.username}</h4>
+          <h4 className='text-2xl ml-3'><i class="fa-solid fa-user text-sm mr-1"></i>{msg.username === username ? <b className='text-[lightgreen]'>{msg.username}</b> : msg.username}</h4>
         </div>
       </div>
 
