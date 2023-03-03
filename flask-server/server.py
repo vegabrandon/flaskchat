@@ -30,8 +30,14 @@ def test():
 @app.route('/users', methods=['POST'])
 # @crossdomain(origin='*')
 async def users():
-  userCollection.insert_one({'username': request.json['username'], 'password': request.json['password']})
-  return {}
+  try:
+    userCollection.insert_one({'username': request.json['username'], 'password': request.json['password']})
+    currentUser = userCollection.find_one({'username': request.json['username']})
+    if currentUser:
+      return { "username": currentUser['username'] }
+  except:
+    return "Username taken", 400
+
 
 @app.route('/login', methods=['POST'])
 # @crossdomain(origin='*')
